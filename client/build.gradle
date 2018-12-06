@@ -1,0 +1,8 @@
+dependencies {
+    annotationProcessor project(':model-processor')
+// BELOW NEVER WORKS
+// annotationProcessor "com.company:model-processor:${project.version}"
+
+    compileOnly project(':model')
+    compileOnly group: 'org.immutables', name: 'value', version: '2.5.6'
+}

@@ -1,0 +1,7 @@
+dependencies {
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.1'
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-guava', version: '2.9.1'
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.1'
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.9.1'
+    compileOnly group: 'org.immutables', name: 'value', version: '2.5.6'
+}

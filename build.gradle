@@ -1,0 +1,72 @@
+import java.time.OffsetDateTime
+
+buildscript {
+
+    repositories {
+        mavenLocal()
+        maven { url "https://nexus.prod.viatorsystems.com/repository/maven-public" }
+        maven { url "https://maven.dev.tripadvisor.com/artifactory/viator-all/" }
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.15"
+    }
+}
+
+allprojects {
+    apply plugin: "net.ltgt.apt-idea"
+    apply plugin: 'maven'
+    group = 'com.company'
+    version = '0.0.1'
+
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+    sourceCompatibility = 8
+    targetCompatibility = 8
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    task sourcesJar(type: Jar) {
+        from sourceSets.main.allJava
+        classifier = 'sources'
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+                artifact sourcesJar
+            }
+        }
+    }
+
+    task allDeps(type: DependencyReportTask) {}
+
+    tasks.withType(Jar) {
+        doFirst {
+            // Attributes to show under /util/build
+            manifest {
+                attributes "Project-Name"          : project.name
+                attributes "Implementation-Version": project.version
+                attributes "Build-Time"            : OffsetDateTime.now().toString()
+                attributes "Built-By"              : System.getProperty("user.name")
+                attributes "Build-Jdk"             : System.getProperty('java.version')
+                attributes "Build-Using"           : "Gradle ${project.gradle.gradleVersion}"
+            }
+        }
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    dependencies {
+
+    }
+}

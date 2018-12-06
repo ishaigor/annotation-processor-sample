@@ -1,0 +1,4 @@
+include ':model'
+include ':model-processor'
+include ':client'
+

@@ -1,0 +1,12 @@
+dependencies {
+    compile project(':model')
+    compile(group: 'org.reflections', name: 'reflections', version: '0.9.11') {
+        exclude(module: 'annotations')
+        exclude(module: 'javassist')
+    }
+
+    compile group: 'org.immutables', name: 'value', version: '2.5.6'
+    compile 'com.google.auto.service:auto-service:1.0-rc4'
+    compile group: 'com.squareup', name: 'javapoet', version: '1.9.0'
+    compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.9.1'
+}
